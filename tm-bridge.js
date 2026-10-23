@@ -175,7 +175,8 @@
     // 1. Local MCP servers from TM_useSavedMCPServersJSON
     try {
       const rawMCP = localStorage.getItem('TM_useSavedMCPServersJSON');
-      const parsedMCP = rawMCP ? JSON.parse(rawMCP) : {};
+      let parsedMCP = rawMCP ? JSON.parse(rawMCP) : {};
+      if (typeof parsedMCP === 'string') parsedMCP = JSON.parse(parsedMCP);
       const mcpServers = parsedMCP?.mcpServers || {};
       for (const serverName of Object.keys(mcpServers).sort()) {
         const uuid = await uuidv5MCP(serverName);
